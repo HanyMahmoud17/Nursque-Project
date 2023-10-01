@@ -1,9 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import nurseProfilee from "./ShowNurseProfile.module.css";
-// import NurseResume from "./ShowNurseResume";
 import { useSelector, useDispatch } from "react-redux";
-// import { getNurse } from "../../Redux/Slices/NurseProfileR";
-// import ShowRating from "./ShowRates";
 import ShowNurseResume from "./ShowNurseResume";
 import { useLocation, useParams } from 'react-router-dom';
 import { getNurseById } from "../../Redux/Slices/PatientSlice";
@@ -19,9 +16,6 @@ import { io } from "socket.io-client";
 function ShowNurseProfile({ data }) {
   const location = useLocation();
   const page = location.pathname.split('/')[2];
-  // console.log(page);
-  // console.log(data);
-  // Chat
   const username = JSON.parse(localStorage.getItem("user"))?.name;
   const PatientId = JSON.parse(localStorage.getItem("user"))?._id;
   const { id } = useParams();
@@ -145,19 +139,6 @@ function ShowNurseProfile({ data }) {
                         <Button onClick={goTo} className={`${"btn me-2"} ${nurseProfilee['btn_outline_secondary']}`}>
                           ارسل طلب <i className="fa-solid fa-hand fa-bounce"></i>
                         </Button>
-                        {/* Modal */}
-                        {/* <Modal show={showModal}>
-                          <Modal.Header style={{ background: '#43a047', color: 'white', flexDirection: 'row-reverse' }}>
-                            <Modal.Title >مباشر الآن</Modal.Title>
-                            <Modal.Title type="button" class="close" style={{ cursor: 'pointer', fontSize: '32px' }} onClick={handleCloseModal} > &times; </Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            <Chat Socket={Socket} username={username} room={id} />
-                          </Modal.Body>
-                        </Modal> */}
-
-
-
                       </div>
                     </div>
                   </div>

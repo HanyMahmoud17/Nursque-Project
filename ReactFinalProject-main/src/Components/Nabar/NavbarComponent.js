@@ -1,24 +1,20 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import NavStyle from "./Navbarcomponent.module.css";
 import Logo from "../../assets/images/Navbar__Logo.png";
-import { NavLink, Link,useHistory } from "react-router-dom";
-// import jwtDecode from "jwt-decode";
-
+import { NavLink, Link, useHistory } from "react-router-dom";
 import CartComponent from "../Cart/Cart";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import axios from "axios";
 
-// SOCKET IO
+
 function Navbar() {
-  // socket.current
   const socket = useRef();
   useEffect(() => {
     socket.current = io("ws://localhost:3500");
   }, []);
   let token;
   const [notifications, setNotifications] = useState([]);
-  // const [notificationChat, setNotificationChat] = useState([]);
   const [notificationBook, setNotificationBook] = useState([]);
   const [username, setUsername] = useState("");
   const [isLoggedOut, setIsLoggedOut] = useState(false);
@@ -26,7 +22,6 @@ function Navbar() {
 
   function handleLogout() {
     localStorage.removeItem("user");
-    // localStorage.removeItem("token");
     localStorage.removeItem("isDarkMode");
     localStorage.removeItem("CartTotalPrice");
     localStorage.removeItem("CartTotalQuantity");
@@ -54,7 +49,6 @@ function Navbar() {
   useEffect(() => {
     socket.current?.on("getNotification", (data) => {
       if (data.patientId == token._id) {
-        // setNotifications((prevNotifications) => [...prevNotifications, data]);
         setNotifications((prevNotifications) => {
           const updatedNotifications = [...prevNotifications, data];
           localStorage.setItem(
@@ -78,19 +72,6 @@ function Navbar() {
         });
       }
     });
-
-    // socket.current?.on("getNotifcationChat", (data) => {
-    //   if (data.nurseId == token._id) {
-    //     setNotificationChat((prevNotifications) => {
-    //       const updatedNotifications = [...prevNotifications, data];
-    //       localStorage.setItem(
-    //         "notificationChat",
-    //         JSON.stringify(updatedNotifications)
-    //       );
-    //       return updatedNotifications;
-    //     });
-    //   }
-    // });
     return () => {
       socket.current?.off("getNotification");
       socket.current?.off("getNotificationBookNurse");
@@ -98,37 +79,13 @@ function Navbar() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const storedNotificationBook = JSON.parse(
-  //     localStorage.getItem("notificationBook")
-  //   );
-  //   const storedNotificationComment = JSON.parse(
-  //     localStorage.getItem("notificationComment")
-  //   );
-  //   const storedNotificationChat = JSON.parse(
-  //     localStorage.getItem("notificationChat")
-  //   );
-    
-  //   if (storedNotificationBook) {
-  //     setNotificationBook(storedNotificationBook);
-  //   }
-  //   if (storedNotificationComment) {
-  //     setNotifications(storedNotificationComment);
-  //   }
-  //   // if (storedNotificationChat) {
-  //   //   setNotificationChat(storedNotificationChat);
-  //   // }
-  // }, []);
-
   // Edited By Hany
   const acceptBooking = async (notification) => {
-    console.log("acceptBooking..", notification.bookId);
     await axios
       .put(`http://localhost:3500/book/bookings/${notification.bookId}`, {
         status: "accepted",
       })
       .then((res) => {
-        console.log(res.data);
         const updatedNotifications = notificationBook.filter(
           (item) => item._id !== notification._id
         );
@@ -168,12 +125,11 @@ function Navbar() {
   };
 
   // CART BADGE
-  // const [cartCount, setCartCount] = useState(5);
   const { cart } = useSelector((state) => state.CartSlice);
   const api = "http://localhost:3500/";
 
   // New From Hany (PostID)
-  function handleNotificationClick(notification,index) {
+  function handleNotificationClick(notification, index) {
     const postId = notification.postId;
     const commentId = notification.commentId;
     const url = `/Posts/${postId}/${commentId}?scrollTo=${commentId}`;
@@ -190,12 +146,12 @@ function Navbar() {
         commentEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }, 1000);
-        setNotifications((prevNotifications) => {
+    setNotifications((prevNotifications) => {
       const updatedNotificationComment = prevNotifications.filter((_, i) => i !== index);
       localStorage.setItem("notificationComment", JSON.stringify(updatedNotificationComment));
       return updatedNotificationComment;
-    });
-  }
+    });
+  }
 
   return (
     <>
@@ -217,9 +173,8 @@ function Navbar() {
               </div>
             </div>
             <div
-              className={`${
-                NavStyle.toggler
-              } ${"col-xxl-8 me-xxl-5 col-xl-9 mt-xxl-1 mt-xl-2 mt-lg-1 col-lg-9 col-md-1 col-sm-3 d-flex justify-content-between"}`}
+              className={`${NavStyle.toggler
+                } ${"col-xxl-8 me-xxl-5 col-xl-9 mt-xxl-1 mt-xl-2 mt-lg-1 col-lg-9 col-md-1 col-sm-3 d-flex justify-content-between"}`}
             >
               <button
                 className={`${"navbar-toggler"} ${NavStyle.navbar_toggler}`}
@@ -230,24 +185,21 @@ function Navbar() {
                 aria-label="Toggle navigation"
               >
                 <span
-                  className={`${"navbar-toggler-icon"} ${
-                    NavStyle.navbar_toggler_icon
-                  }`}
+                  className={`${"navbar-toggler-icon"} ${NavStyle.navbar_toggler_icon
+                    }`}
                 />
               </button>
               <div
-                className={`${
-                  NavStyle.offcanvas
-                } ${"offcanvas"} ${"offcanvas-end"}`}
+                className={`${NavStyle.offcanvas
+                  } ${"offcanvas"} ${"offcanvas-end"}`}
                 tabIndex={-1}
                 id="offcanvasNavbar"
                 aria-labelledby="offcanvasNavbarLabel"
               >
                 <div className={"offcanvas-header"}>
                   <figure
-                    className={`${"Navbar_Logo"} ${
-                      NavStyle.Navbar__Logo_offcanvas
-                    } ${"text-center w-100 mt-3"}`}
+                    className={`${"Navbar_Logo"} ${NavStyle.Navbar__Logo_offcanvas
+                      } ${"text-center w-100 mt-3"}`}
                   >
                     <NavLink className={"navbar-brand"} to="/Home">
                       <img src={Logo} />
@@ -264,9 +216,8 @@ function Navbar() {
                   className={`${"offcanvas-body"} ${NavStyle.offcanvas_body}`}
                 >
                   <ul
-                    className={`${"navbar-nav col-xxl-9 offset-xxl-0 ms-xl-5 offset-xl-0  mt-xxl-0 col-xl-7 col-lg-8"} ${
-                      NavStyle.navbar_nav
-                    }`}
+                    className={`${"navbar-nav col-xxl-9 offset-xxl-0 ms-xl-5 offset-xl-0  mt-xxl-0 col-xl-7 col-lg-8"} ${NavStyle.navbar_nav
+                      }`}
                   >
                     <li className={`${"nav-item cont"} ${NavStyle.cont}`}>
                       <NavLink
@@ -339,9 +290,8 @@ function Navbar() {
                       {userRole !== "nurse" && username && (
                         <Link to="/Cart">
                           <i
-                            className={`${"fa fa-cart-plus"} ${
-                              NavStyle.fa_cart_plus
-                            }`}
+                            className={`${"fa fa-cart-plus"} ${NavStyle.fa_cart_plus
+                              }`}
                           >
                             {cart.length > 0 && (
                               <span className={NavStyle.cart_Counter}>
@@ -357,9 +307,8 @@ function Navbar() {
                             className={`${NavStyle.Notify} dropdown ${NavStyle.dropdown}`}
                           >
                             <button
-                              className={`${"btn dropdown-toggle"} ${
-                                NavStyle["dropdown-toggle"]
-                              } ${NavStyle["btn"]}`}
+                              className={`${"btn dropdown-toggle"} ${NavStyle["dropdown-toggle"]
+                                } ${NavStyle["btn"]}`}
                               type="button"
                               id="profileDropdownMenuButton"
                               data-bs-toggle="dropdown"
@@ -388,9 +337,8 @@ function Navbar() {
                               )}
                             </button>
                             <ul
-                              className={`${"dropdown-menu"} ${
-                                NavStyle["dropdown-menu"]
-                              }`}
+                              className={`${"dropdown-menu"} ${NavStyle["dropdown-menu"]
+                                }`}
                               aria-labelledby="profileDropdownMenuButton"
                             >
                               {notifications.map((notification, index) => (
@@ -410,8 +358,8 @@ function Navbar() {
                                       className={NavStyle.NotificationIMG}
                                     >
                                       <p className={NavStyle.NotifyText}>
-                                       
-                                         : قام{" "} {notification.postNurseName}  بالتعليق على منشورك بعنوان{" "}
+
+                                        : قام{" "} {notification.postNurseName}  بالتعليق على منشورك بعنوان{" "}
                                         <img
                                           src={`${api}${notification.nurseImg}`}
                                         />
@@ -439,10 +387,6 @@ function Navbar() {
                                         <div className="d-flex">
                                           <a
                                             onClick={(e) => {
-                                              console.log(
-                                                "notificationBook.bookId in the button",
-                                                notification.bookId
-                                              );
                                               e.preventDefault();
                                               acceptBooking(notification);
                                             }}
@@ -484,9 +428,8 @@ function Navbar() {
                           <NavLink
                             to="/Signup"
                             type="button"
-                            className={`${"btn"} ${
-                              NavStyle.btn_outline_primary
-                            } `}
+                            className={`${"btn"} ${NavStyle.btn_outline_primary
+                              } `}
                           >
                             انضم الآن
                           </NavLink>
@@ -494,9 +437,8 @@ function Navbar() {
                           <NavLink
                             to="/Login"
                             type="button"
-                            className={`${"btn"} ${
-                              NavStyle.btn_outline_secondary
-                            } `}
+                            className={`${"btn"} ${NavStyle.btn_outline_secondary
+                              } `}
                           >
                             {" "}
                             الدخول{" "}
@@ -508,9 +450,8 @@ function Navbar() {
                           <a className={`${NavStyle.ProfilePic} `}>
                             <div className={`${NavStyle.ProfilePic} dropdown`}>
                               <button
-                                className={`${"btn dropdown-toggle"} ${
-                                  NavStyle.ProfilePicButton
-                                } ${NavStyle.btn_Profile_Outlined}`}
+                                className={`${"btn dropdown-toggle"} ${NavStyle.ProfilePicButton
+                                  } ${NavStyle.btn_Profile_Outlined}`}
                                 type="button"
                                 id="profileDropdownMenuButton"
                                 data-bs-toggle="dropdown"
@@ -527,9 +468,8 @@ function Navbar() {
                                   <li>
                                     <NavLink
                                       to="/nurseProfile"
-                                      className={`${"dropdown-item text-end"} ${
-                                        NavStyle.dropdown_item
-                                      }`}
+                                      className={`${"dropdown-item text-end"} ${NavStyle.dropdown_item
+                                        }`}
                                     >
                                       الصفحة الشخصية
                                     </NavLink>
@@ -538,9 +478,8 @@ function Navbar() {
                                   <li>
                                     <NavLink
                                       to="/patientProfile"
-                                      className={`${"dropdown-item text-end"} ${
-                                        NavStyle.dropdown_item
-                                      }`}
+                                      className={`${"dropdown-item text-end"} ${NavStyle.dropdown_item
+                                        }`}
                                     >
                                       الصفحة الشخصية
                                     </NavLink>
@@ -549,9 +488,8 @@ function Navbar() {
                                 <li>
                                   <NavLink
                                     to="/Login"
-                                    className={`${"dropdown-item text-end text-danger"} ${
-                                      NavStyle.dropdown_item
-                                    }`}
+                                    className={`${"dropdown-item text-end text-danger"} ${NavStyle.dropdown_item
+                                      }`}
                                     onClick={handleLogout}
                                   >
                                     <i className="bx bx-log-out me-1"></i>{" "}

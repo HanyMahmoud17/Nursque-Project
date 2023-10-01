@@ -1,11 +1,9 @@
-// import io from "socket.io-client";
 import { useLocation,useParams  } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import PostStyle from "./post.module.css";
 import NoData from "../../assets/images/No data-rafiki.svg";
-// import ModalPost from "../Modal/Modal";
 import axios from "axios";
 import moment from "moment";
 import { useFormik } from "formik";
@@ -49,8 +47,6 @@ function Posts() {
         .includes(e.target.value.toLowerCase())
         );
         getFilteredPosts(x)
-        console.log(FilteredPosts);
-
     }
   }
 
@@ -66,7 +62,6 @@ function Posts() {
     onSubmit: (values) => {
       axios.post("http://localhost:3500/post/postsFilter", values)
         .then((res) => {
-          console.log(res);
           getFilteredPosts(res.data.data)
         });
     },
@@ -246,7 +241,6 @@ const commentsRef = useRef(null);
                                   <span className={PostStyle.userimage}>
                                     <img
                                       src={`${api}${patientes && patientes.profile || post.patientImg}`}
-                                      // src="https://bootdey.com/img/Content/avatar/avatar3.png"
                                       alt=""
                                     />
                                   </span>

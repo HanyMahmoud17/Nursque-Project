@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './card.module.css'
 import { useDispatch } from 'react-redux'
-// import { addToCart } from '../../Redux/Slices/DeviceSlice'
 import Rating from './Rating';
 import { addToCart } from '../../Redux/Slices/CartSlice'
 import { NavLink} from "react-router-dom";

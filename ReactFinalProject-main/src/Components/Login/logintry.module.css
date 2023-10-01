@@ -1,15 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri&family=Inter:wght@300&family=Nunito:wght@200&family=Rubik:wght@300&family=Work+Sans:wght@700&display=swap');
-/* *{
-  margin: 0;
-  padding: 0;
-  font-family: 'El Messiri', sans-serif;
-} */
+
 .main_css{
-  /* height: 100vh; */
-  /* background: url('https://images.pexels.com/photos/8670435/pexels-photo-8670435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') fixed no-repeat; */
   background-size: cover;
-
-
 }
 
 .container_form{

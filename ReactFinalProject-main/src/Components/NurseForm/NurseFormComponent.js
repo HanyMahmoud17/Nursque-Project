@@ -8,16 +8,11 @@ import jwtDecode from "jwt-decode";
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2'
 
-
 function OnService({Socket}) {
-
     useEffect(()=>{
         window.scrollTo(0,0)
     },[])
-    // console.log("socket.....",Socket);
     const loc = useLocation()
-    // console.log(loc.state);
-    
     const [indexx, setIndexx] = useState(0)
     function selectedDay(e) {
         let selected = loc.state.available.find(item => item.day === e.target.value )
@@ -67,7 +62,7 @@ function OnService({Socket}) {
 
 
         onSubmit: async (values, { resetForm }) => {
-            // console.log(values);
+            
             // resetForm();
             const token = localStorage.getItem("token");
             const decoded = jwtDecode(token);
@@ -77,8 +72,6 @@ function OnService({Socket}) {
                 headers: { authorization: `Bearer ${token}` },
             })
                 .then((res) => {
-                    // console.log(res.data);
-                    // console.log(form);
                     Swal.fire({
                         position: 'top',
                         icon: 'success',
@@ -86,10 +79,7 @@ function OnService({Socket}) {
                         showConfirmButton: false,
                         timer: 2000
                     })
-
-                    console.log("res.data ........",res.data);
-
-                    // notifictionj
+                    // notification send
                     Socket.emit("sendNotificationBookNurse", {
                         patientName: res.data.data.userName,
                         NurseId: res.data.data.NurseId,
@@ -160,7 +150,6 @@ function OnService({Socket}) {
                         autoComplete="off"
                         className={nurseformstyle.input}
                         onChange={formik.handleChange}
-                    // value={values.userPhoneNumber}
                     />
                 </div>
                 {formik.errors.userPhoneNumber && <small className={nurseformstyle.validatesmall} id="userPhoneNumber" >{formik.errors.userPhoneNumber}</small>}
@@ -402,7 +391,7 @@ function OnShift({Socket}) {
 
 
         onSubmit: async (values, { resetForm }) => {
-            // console.log(values);
+        
             // resetForm();
             resetForm();
             const token = localStorage.getItem("token");
@@ -412,8 +401,7 @@ function OnShift({Socket}) {
                 headers: { authorization: `Bearer ${token}` },
             })
                 .then((res) => {
-                    // console.log(res.data);
-                    // console.log(form);
+                   
                     Swal.fire({
                         position: 'top',
                         icon: 'success',
@@ -421,18 +409,6 @@ function OnShift({Socket}) {
                         showConfirmButton: false,
                         timer: 2000
                     })
-
-                    // console.log("res.data ........",res.data);
-
-                    // // notifictionj
-                    // Socket.emit("sendNotificationBookNurse", {
-                    //     // postNameSender: res.data.patientName,
-                    //     // patientId: res.data.patientId,
-                    //     // postNurseName: lastComment.nurseName,
-                    //     // nurseComment: lastComment.comment,
-                    //     // postTitle:res.data.title,
-                    //     // nurseImg: lastComment.nurseImg
-                    //   });
                 })
                 .catch((error) => {
                     console.error(error);

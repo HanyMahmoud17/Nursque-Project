@@ -10,17 +10,9 @@ import { getNurse } from "../../Redux/Slices/NurseProfileR";
 
 const AddExperience = () => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const dispatch = useDispatch();
-
-
-
-
-
-
   return (
     <>
       <style>
@@ -52,12 +44,8 @@ const AddExperience = () => {
           },
         }}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-          
             const token = localStorage.getItem("token");
-            // const user = localStorage.getItem("user");
             const decoded = jwtDecode(token);
-            console.log(decoded);
             const id = decoded.userid;            axios
               .post(
                 `http://localhost:3500/nurse/addEducationAndExperience/${id}`,
@@ -67,7 +55,6 @@ const AddExperience = () => {
               )
               .then((response) => {
                 dispatch(getNurse());
-                console.log(response.data);
                 handleClose();
               })
               .catch((error) => {

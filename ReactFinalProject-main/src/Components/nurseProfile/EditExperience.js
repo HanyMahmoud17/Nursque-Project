@@ -9,7 +9,6 @@ import { Formik, Field } from "formik";
 function EditExperience(props) {
   let { nurseExperience, index } = props;
 nurseExperience = props.nurse;
-// console.log(nurseExperience);
 
   const dispatch = useDispatch();
 

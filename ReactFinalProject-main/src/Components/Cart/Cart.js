@@ -3,7 +3,6 @@ import CartStyle from '../Cart/cart.module.css';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-// import { getAllCartProduct,deleteFormCart,emptyFormCart,addToCart } from ''
 import { getAllCartProduct, deleteFromCart, emptyFromCart, addQuantity, minusQuantity } from '../../Redux/Slices/CartSlice'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -33,21 +32,16 @@ function CartComponent() {
     }
   }, []);
 
-  // const handEmptyCart = () => {
-  //   dispatch(emptyFromCart());
-  // }
   const handleAddQ = (itemQ) => {
-    // console.log(itemQ);
+
     dispatch(addQuantity(itemQ))
   }
   const handleMinusQ = (itemQ) => {
-    // console.log(itemQ);
     dispatch(minusQuantity(itemQ)).then(()=>dispatch(getAllCartProduct()))
 
   }
   const MySwal = withReactContent(Swal)
   const handledeletefromCart = (product) => {
-    // console.log(product);
     MySwal.fire({
       title: <p> هل تريد حذف {product.name} ؟ </p>,
       showCancelButton: true,

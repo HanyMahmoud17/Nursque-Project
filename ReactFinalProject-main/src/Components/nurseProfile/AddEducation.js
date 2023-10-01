@@ -46,14 +46,9 @@ function AddEducation() {
             },
           }}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-
             const token = localStorage.getItem("token");
             const decoded = jwtDecode(token);
-            console.log(decoded);
             const id = decoded.userid;
-            // const id = "647d0159411e1edad4d902c8";
-
             axios
               .post(
                 `http://localhost:3500/nurse/addEducationAndExperience/${id}`,
@@ -63,8 +58,6 @@ function AddEducation() {
               )
               .then((response) => {
                 dispatch(getNurse());
-
-                console.log(response.data);
                 handleClose();
               })
               .catch((error) => {

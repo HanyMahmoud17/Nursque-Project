@@ -13,7 +13,6 @@ function EditInfo(props) {
   {
 
     setImage(`${url}${data.profile}`)
-    console.log(`${url}${data.profile}`);
     
   },[data])
 
@@ -26,7 +25,6 @@ function EditInfo(props) {
 
   // Submit the updated nurse info to the server
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values)
 
     let form = new FormData();  
     form.append("name", values.name);  

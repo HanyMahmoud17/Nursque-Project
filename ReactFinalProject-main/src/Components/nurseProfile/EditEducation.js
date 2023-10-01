@@ -7,10 +7,8 @@ import { useDispatch } from "react-redux";
 import { getNurse,updateNurseEducation } from "../../Redux/Slices/NurseProfileR";
 
 function EditEducation(props) {
-  // console.log(props.nurse.degree)
   let { nurseEducation, index } = props;
   nurseEducation= props.nurse;
-// console.log(nurseEducation._id);
   const dispatch = useDispatch();
 let eduID=nurseEducation._id
   const [showModal, setShowModal] = useState(false);
@@ -20,10 +18,6 @@ let eduID=nurseEducation._id
 
   // Submit the updated education data to the server
   const handleSubmit = (values, { setSubmitting }) => {
-  // console.log(values);
-
-    // const { degree, fieldOfStudy, school, toDate, description } = values;
-    // const educationData = { degree, fieldOfStudy, school, toDate, description };
     dispatch(updateNurseEducation({
       nurseEducation_id: nurseEducation._id,
       index,

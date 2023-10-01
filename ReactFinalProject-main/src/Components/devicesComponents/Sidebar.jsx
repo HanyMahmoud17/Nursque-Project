@@ -27,7 +27,6 @@ function Sidebar() {
     function compare(e) {
         if (e.target.checked === true) {
             dispatch(evaluteFilter({ name: e.target.name, statuss: e.target.checked }))
-            // console.log(e.target.name);
         }
         else if (e.target.checked === false) {
             dispatch(evaluteFilter({ name: e.target.name, statuss: e.target.checked }))

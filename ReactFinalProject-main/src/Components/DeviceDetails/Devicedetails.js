@@ -28,11 +28,10 @@ const notify = () =>
 
 
 function Devicedetails({ data }) {
-  console.log(data);
+ 
   const { id } = useParams();
-  // console.log(id);
+ 
   const deviceDetails = useSelector((state) => state.DeviceSlice.device);
-  console.log(deviceDetails);
   const dispatch = useDispatch();
   const api = "http://localhost:3500/";
 

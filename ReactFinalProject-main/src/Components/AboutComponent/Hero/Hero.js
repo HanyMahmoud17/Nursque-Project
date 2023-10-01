@@ -1,7 +1,5 @@
 import React from 'react'
 import herostyle from '../Hero/herostyle.module.css'
-// import'../style.css'
-// import hero from '../../assets/aboutImgs/Healthprofessionalteam-rafiki.svg'
 import hero from '../../../assets/images/Healthprofessionalteam-rafiki.svg'
 import { NavLink } from 'react-router-dom'
 import DarkStyle from '../../DarkMode/darkBtn.module.css'
