@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 function SignupPatient() {
   const navigate = useNavigate();
@@ -40,18 +40,13 @@ function SignupPatient() {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log(values)
-     
       axios
         .post('http://localhost:3500/patient/patientReg', values)
         .then((res) => {
-          console.log(res.data)
           if (res.data.success === true) {
             navigate('/Login')
-            // alert(res.data.message)
           } else {
-           console.log(res.data.message)
-           navigate('/SignupPatient')
+            navigate('/SignupPatient')
           }
         })
     },
@@ -59,15 +54,15 @@ function SignupPatient() {
 
   return (
     <motion.div
-    initial={ {opacity: 0 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={ {opacity: 0 }}
-      variants={{duration: 0.2}}
-      transition={{yoyo: {duration:1}}}
+      exit={{ opacity: 0 }}
+      variants={{ duration: 0.2 }}
+      transition={{ yoyo: { duration: 1 } }}
 
       style={{
         backgroundImage: `url("https://designstripe-secure.imgix.net/scene-snapshots/06833868-f28d-4fb6-926a-44cfbe167500/1640021720669/default?auto=format&fit=clip&h=850&mark=%2Fwatermark.png&markfit=max&markalign=middle%2Ccenter&markw=1&markh=1&s=44d9a637a6aea08cf1585b6bf08a2368")`,
-        backgroundColor: 'white', 
+        backgroundColor: 'white',
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -78,19 +73,6 @@ function SignupPatient() {
       }}
     >
       <Helmet>
-        {/* <style>
-          {`
-                body {
-                  background-image: url("https://designstripe-secure.imgix.net/scene-snapshots/06833868-f28d-4fb6-926a-44cfbe167500/1640021720669/default?auto=format&fit=clip&h=850&mark=%2Fwatermark.png&markfit=max&markalign=middle%2Ccenter&markw=1&markh=1&s=44d9a637a6aea08cf1585b6bf08a2368");
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  padding: 10px;
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                }
-                `}
-        </style> */}
         <style>
           {`
           body{
@@ -103,7 +85,7 @@ function SignupPatient() {
           `}
         </style>
       </Helmet>
-      <div dir="rtl" style={{marginTop: '-12px'}} className={styleSignNurse.container}>
+      <div dir="rtl" style={{ marginTop: '-12px' }} className={styleSignNurse.container}>
         <div className={styleSignNurse.title}>
           <div className={styleSignNurse.title}>
             <h2>سجل كمريض </h2>
@@ -119,11 +101,10 @@ function SignupPatient() {
                   name="name"
                   placeholder="ادخل اسمك بالكامل"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({name:true}) 
-                    }} 
-                    style={{ border: formik.touched.name &&formik.errors.name ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ name: true })
+                  }}
+                  style={{ border: formik.touched.name && formik.errors.name ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.name && (
                   <small id="emailHelp" style={{ color: 'red' }}>
@@ -141,11 +122,10 @@ function SignupPatient() {
                   name="email"
                   placeholder="ادخل ايميلك"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({email:true}) 
-                    }} 
-                    style={{ border: formik.touched.email &&formik.errors.email ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ email: true })
+                  }}
+                  style={{ border: formik.touched.email && formik.errors.email ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.email && (
                   <small id="emailHelp" style={{ color: 'red' }}>
@@ -160,11 +140,10 @@ function SignupPatient() {
                   name="phoneNumber"
                   placeholder="ادخل رقم الهاتف"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({phoneNumber:true}) 
-                    }} 
-                    style={{ border: formik.touched.phoneNumber &&formik.errors.phoneNumber ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ phoneNumber: true })
+                  }}
+                  style={{ border: formik.touched.phoneNumber && formik.errors.phoneNumber ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.phoneNumber && (
                   <small id="phoneHelp" style={{ color: 'red' }}>
@@ -179,11 +158,10 @@ function SignupPatient() {
                   name="password"
                   placeholder="ادخل الرقم السرى"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({password:true}) 
-                    }} 
-                    style={{ border: formik.touched.password &&formik.errors.password ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ password: true })
+                  }}
+                  style={{ border: formik.touched.password && formik.errors.password ? 'solid 1px red' : '' }}
                 />
 
                 {formik.touched.password && (
@@ -199,11 +177,10 @@ function SignupPatient() {
                   name="confirmPassword"
                   placeholder="تاكيد الرقم السرى"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({confirmPassword:true}) 
-                    }} 
-                    style={{ border: formik.touched.confirmPassword &&formik.errors.confirmPassword ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ confirmPassword: true })
+                  }}
+                  style={{ border: formik.touched.confirmPassword && formik.errors.confirmPassword ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.confirmPassword && (
                   <small id="emailHelp" style={{ color: 'red' }}>
@@ -224,7 +201,7 @@ function SignupPatient() {
                         id="dot-1"
                         onChange={formik.handleChange}
                         value="male"
-                        
+
                       />
                     </label>
                     <label htmlFor={styleSignNurse['dot-2']}>
@@ -241,11 +218,11 @@ function SignupPatient() {
 
                   </div>
                 </div>
-                    {formik.touched.gender && (
-                      <small id="emailHelp" style={{ color: 'red' }}>
-                        {formik.errors.gender}
-                      </small>
-                    )}
+                {formik.touched.gender && (
+                  <small id="emailHelp" style={{ color: 'red' }}>
+                    {formik.errors.gender}
+                  </small>
+                )}
               </div>
 
               <div className={styleSignNurse['input-box']}>
@@ -255,11 +232,10 @@ function SignupPatient() {
                   name="address"
                   placeholder="ادخل عنوانك"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({address:true}) 
-                    }} 
-                    style={{ border: formik.touched.address &&formik.errors.address ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ address: true })
+                  }}
+                  style={{ border: formik.touched.address && formik.errors.address ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.address && (
                   <small id="emailHelp" style={{ color: 'red' }}>
@@ -275,11 +251,10 @@ function SignupPatient() {
                   name="region"
                   placeholder="ادخل منطقتك"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({region:true}) 
-                    }} 
-                    style={{ border: formik.touched.region &&formik.errors.region ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ region: true })
+                  }}
+                  style={{ border: formik.touched.region && formik.errors.region ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.region && (
                   <small id="emailHelp" style={{ color: 'red' }}>
@@ -294,11 +269,10 @@ function SignupPatient() {
                   name="age"
                   placeholder="ادخل سنك"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({age:true}) 
-                    }} 
-                    style={{ border: formik.touched.age &&formik.errors.age ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ age: true })
+                  }}
+                  style={{ border: formik.touched.age && formik.errors.age ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.age && (
                   <small id="emailHelp" style={{ color: 'red' }}>
@@ -314,11 +288,10 @@ function SignupPatient() {
                   name="nationalId"
                   placeholder="ادخل الرقم القومى"
                   onChange={formik.handleChange}
-                  onBlur={()=> 
-                    { 
-                      formik.setTouched({nationalId:true}) 
-                    }} 
-                    style={{ border: formik.touched.nationalId &&formik.errors.nationalId ? 'solid 1px red' : '' }}
+                  onBlur={() => {
+                    formik.setTouched({ nationalId: true })
+                  }}
+                  style={{ border: formik.touched.nationalId && formik.errors.nationalId ? 'solid 1px red' : '' }}
                 />
                 {formik.touched.nationalId && (
                   <small id="emailHelp" style={{ color: 'red' }}>

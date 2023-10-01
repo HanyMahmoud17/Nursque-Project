@@ -31,19 +31,14 @@ export default function Login() {
         }),
         
   onSubmit: (values) => {
-    console.log(values);
     axios.post('http://localhost:3500/patient/login',values)
         .then((res) => {
-          console.log(res.data)
           if (res.data.success === true) {
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user', JSON.stringify(res.data.data))
-            console.log(res.data.data);
             navigate('/Home')
             }
             else {
-              console.log(res.data.message)
-              // navigate('/Login')
               const notify = () =>
               toast.error(res.data.message, {
                 position: "top-center",

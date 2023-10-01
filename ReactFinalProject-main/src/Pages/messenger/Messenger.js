@@ -122,19 +122,6 @@ export default function Messenger() {
     return uniqueConversations;
   };
 
-
-  // const handleClick = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `/chat/find/${PatientId}/${id}`
-  //     );
-  //     // setCurrentChat(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-
   return (
     <div className="messenger">
       <div className="chatMenu">

@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import Card from "../components/nurse-card/Card"
 import Card from "../../Components/NurseComponent/nurse-card/Card"
-// import { getAllNurses } from '../Redux/Slices/NurseSlice';
 import { getAllNurses  } from '../../Redux/Slices/NurseSlice';
-// import Header from '../components/Header/Header';
 import Header from '../../Components/NurseComponent/Header/Header';
 import  Sidebar  from '../../Components/NurseComponent/sidebar/Sidebar'
 import './Nurses.css'
@@ -23,8 +20,6 @@ function Nurses() {
       }
     },[])
     const { filteredNerses } = useSelector(state => state.NurseSlice)
-    console.log(filteredNerses);
-    // const { filter } = useSelector(state => state.NurseSlice)
    return (
     
     <motion.div
